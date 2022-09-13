@@ -1,0 +1,16 @@
+---
+title: 'STAT 545A L2: Version Control'
+author: "Jerry"
+date: "2022-09-13"
+output: html_document
+---
+
+# Version Control
+
+## Cloning a Repo
+
+1.  In the top right corner, create a new Rproj.
+2.  Click "New Project"
+3.  Click "Version Control"
+4.  Click "GitHub"
+5.  Enter the HTTPS from the repo on GitHub and you're good!
