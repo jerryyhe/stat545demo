@@ -1,0 +1,51 @@
+---
+ title: 'STAT 545A L2: Version Control'
+ author: "Jerry"
+ date: "2022-09-13"
+ output: html_document
+ ---
+
+ # Version Control
+
+ ## Cloning a Repo
+
+ 1.  In the top right corner, create a new Rproj.
+ 2.  Click "New Project".
+ 3.  Click "Version Control".
+ 4.  Click "GitHub".
+ 5.  Enter the HTTPS from the repo on GitHub and you're good!
+
+ ## Making a Local Change: commit, push, check GitHub
+
+ 1.  First, save your file on your local computer
+ 2.  Next, in the "Environment" panel (the panel in the top right corner by default), navigate to "Git"
+ 3.  Select the files you'd like to commit to GitHub.
+ 4.  Press "Commit".
+ 5.  In the new pop-up window, add what changes you made and why to the Notes box, then press "Commit".
+ 6.  Now, you're ready to push your changes to GitHub. Still in the "Git" panel, select "Push'.
+ 7.  Yay! You just made a pushed a file to GitHub!
+
+ ## Make a Change on GitHub and Update it on Your Local Computer - Pulling
+
+ 1.  Make a change to a file in your GitHub repo.
+ 2.  Then, in RStudio, in the "Git" panel, click "Pull". 3 Now you're all synced up!
+
+ This is really powerful because you and others can make changes on your own computer and push it to GitHub!
+
+ However, the reality of this is that because of this, there can be conflicts. i.e. You and someone else make a change to the same document and push it to GitHub
+
+ ## Conflicts: Make a GitHub Change, then a Local CONFLICTING Change -\> Sync
+
+ Basically, if you try to push a file to GitHub that doesn't contain changes that are in the file arleady on GitHub (since someone else just pushed a file -\> conflict), then you will get a conflict or error.
+
+ Often, this can be remedied by pulling from get and then pushing again, but not always.
+
+ E.g. a file on GitHub is edited and you, simultaneously, edit it on your local.
+
+ When this happens, you try pulling again. You will get an error, but then you can try to open the document you've edited and you should automatically see (denoted by the symbols \>\>\>\>\>\>\>, ======, \<\<\<\<\<) the changes that were made on GitHub and the changes that were made on your local. You have to choose manually which changes you want to fix. Then you should be able to commit and push to GitHub properly.
+
+ ## Branches and Pull Requests
+
+ A branch is, more or less, another parallel version of directoreis or files in GitHub. It's good if you want to keep the o.g. version or make edits on parallel branch so you don't mess everything up. To push your changes in your parallel branch to the main branch, this is called a pull request?
+
+ You have to figure this out yourself smhhhhh.
