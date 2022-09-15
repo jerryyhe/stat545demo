@@ -2,7 +2,10 @@
 title: 'STAT 545 L3: Authoring'
 author: "Jerry"
 date: "2022-09-15"
-output: html_document
+output: 
+  html_document:
+    theme: cerulean
+    toc: true 
 ---
 
 # Authoring
