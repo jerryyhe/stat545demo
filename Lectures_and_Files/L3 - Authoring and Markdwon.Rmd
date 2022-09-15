@@ -1,0 +1,62 @@
+---
+title: 'STAT 545 L3: Authoring'
+author: "Jerry"
+date: "2022-09-15"
+output: html_document
+---
+
+# Authoring
+
+## Intro to Markdown
+
+Markdown is ideal for creating reproducible workflows. What this mean is that it is basically a workflow that makes re-running your analysis so simple that you can basically do it with one click.
+
+We are going through basic formatting in a markdown file in the file `demo_markdown_file.md`
+
+Also note, you can write comments that don't show up on the .html file with the following syntax:\
+<!--- I'm a comment --->\
+You should see an empty space above me.
+
+### Writing PDF Files
+
+Usually, you need a PDF writer such as LaTeX, but you we don't want to download it so we can use the R package "tinytex"
+
+```{r}
+#install.packages("tinytex")
+#tinytex::install_tinytex()
+```
+
+## R Markdown Files
+
+For R markdown, you need to download the "rmarkdown" package. Let's also download the "DT" package since we will need it in the future.
+
+```{r}
+#install.packages("rmarkdown")
+#install.packages("DT")
+```
+
+FYI, everything that works in a basic markdown file also works in Rmd!
+
+So what's the difference?\
+- For one, you can write in code chunks in Rmd!\
+- Rmds also come default with a YAML header, denoted between three dashes "---"\
+- YAML headers are more or less metadata for Rmd and also gives info on how to format the doc.  
+- Also, instead of previewing, Rmd uses the knitr package to knit these Rmds into HTML docs or others!  
+
+When knitting Rmd files, it actually automatically runs your code and places the output tidily below. See for yourself by knitting this file!
+```{r}
+summary(cars)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
