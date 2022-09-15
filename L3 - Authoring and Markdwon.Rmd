@@ -1,0 +1,27 @@
+---
+title: 'STAT 545 L3: Authoring'
+author: "Jerry"
+date: "2022-09-15"
+output: html_document
+---
+
+# Authoring
+
+## Intro to R Markdown and Markdown
+
+Markdown is ideal for creating reproducible workflows. What this mean is that it is basically a workflow that makes re-running your analysis so simple that you can basically do it with one click.
+
+We are going through basic formatting in a markdown file in the file `demo_markdown_file.md`
+
+Also note, you can write comments that don't show up on the .html file with the following syntax:\
+<!--- I'm a comment --->\
+You should see an empty space above me.
+
+## Writing PDF Files
+
+Usually, you need a PDF writer such as LaTeX, but you we don't want to download it so we can use the R package "tinytex"
+
+```{r}
+#install.packages("tinytex")
+#tinytex::install_tinytex()
+```
