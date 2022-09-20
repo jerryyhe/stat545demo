@@ -1,0 +1,17 @@
+---
+title: "L4 - Data Wrangling with dplyr"
+author: "Jerry"
+date: "2022-09-20"
+output: html_document
+---
+
+# L4: Data Wrangling with dplyr
+
+The package dplyr is really useful for manipulating data.\
+We will use five core functions in dplyr: select(), filter(), arrange(), mutate(), summarize(), across().\
+In the following two classes, we will get more familiar with these verbs by working through Worksheet A2.
+
+## The Tidyverse
+
+The tidyverse is basically a huge bundle of nice useful packages for data science. All packages share an underlying design philosophy, grammar, and data structures!
+
