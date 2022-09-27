@@ -1,5 +1,5 @@
 ---
-title: "L4 - Data Wrangling with dplyr"
+title: "L4 & L5 - Data Wrangling with dplyr"
 author: "Jerry"
 date: "2022-09-20"
 output: html_document
@@ -15,3 +15,5 @@ In the following two classes, we will get more familiar with these verbs by work
 
 The tidyverse is basically a huge bundle of nice useful packages for data science. All packages share an underlying design philosophy, grammar, and data structures!
 
+## Useful Notes
+- When using functions in across() within summarize(), you don't need the () when calling functions 
