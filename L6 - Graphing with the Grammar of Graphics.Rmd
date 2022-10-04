@@ -3,5 +3,52 @@ title: "L6 - Graphing with the Grammar of Graphic ggplot"
 author: "Jerry"
 date: "2022-09-27"
 output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
+
 # Graphing with the Grammar of Graphics - ggplot
+
+## Why plot data?
+
+Well, it might seem self-explanatory to some, but, as the saying goes:
+"a picture is worth a thousand words". Graphs and plots are an excellent
+way to convey a large amount of information clearly and concisely. When
+used correctly, you can use plots and ggplot to make beautiful plots
+that can could convey the expression of thousands of genes or more!
+
+## A History of Plotting in R
+
+### Base R
+
+### Lattice
+
+### ggplot
+
+ggplot is great because it's a simple, concise, logical, and effective
+tool to make all sorts of plots. Developed by Hadley Wickham during his
+PhD, this package relies on the principles outlined in the Grammer of
+Graphics, making it somewhat intuitive.
+
+ggplot is also still under active development and is very popular
+amongst the R community and beyond. There are a lot of extension
+packages for ggplot as well, of these, "patchwork" is a popular pacakges
+for arranging facets!
+
+plotly is a newer tool for graphing that allows the creation of
+interactive plots. This package was developed outside of R, but you can
+actually use it with ggplot language. You can use the package of the
+same namesake in R "plotly" to access this.
+
+## The Grammar of Graphics
+
+The grammar of graphics specifies 7 layers or principles of plotting:
+
+1.  Data\
+2.  Aesthetic Mappings\
+3.  Geometric Objects\
+4.  Scales\
+5.  Statistical Transformations\
+6.  Coordinate System\
+7.  Facet

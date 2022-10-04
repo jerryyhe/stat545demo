@@ -1,0 +1,41 @@
+---
+title: "L8 - Tidy Data"
+author: "Jerry"
+date: "2022-10-04"
+output: html_document
+---
+
+# L8: Tidy Data
+
+## Exercise 1
+
+This exercise is from the STAT545 website under the Tidy Data module.
+
+Your task:
+
+1.  Form a small group with some of your neighbours.\
+2.  As a group, spend about five minutes brainstorming how to reproduce the plots above, using only what we have learned so far about dplyr and ggplot2.\
+3.  Did you hit a wall? Discuss as a group and see if you can put your finger on why bullet point #2 was hard.
+
+```{r}
+# Load packages
+library(tidyverse)
+library(fivethirtyeight)
+
+# Load data
+drinks_tbl1 <- as_tibble(drinks)
+
+# Pivot servings and alcohol longer into two separate cols
+drinks_tbl2 <- drinks_tbl1 %>% 
+  pivot_longer(cols = ends_with("servings"), names_to = "Alcohol", values_to = "Servings")
+
+# Plot
+drinks_tbl2 %>% 
+  ggplot(aes(x=Servings)) + 
+  geom_histogram() + 
+  facet_wrap(vars(Alcohol)) + 
+  ylab("Number of countries in each alcohol consumption group") + 
+  xlab("Number of servings of alcohol consumed in 2010")
+
+
+```
