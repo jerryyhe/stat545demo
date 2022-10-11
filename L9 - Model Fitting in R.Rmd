@@ -158,7 +158,8 @@ gapminder_Zimbabwe %>%
   geom_point() +
   geom_smooth(method = "lm", 
               formula = y ~ poly(x, 2), 
-              se = FALSE)
+              se = FALSE) +
+  theme_bw()
 
 
 ```
