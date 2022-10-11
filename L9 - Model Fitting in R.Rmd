@@ -1,0 +1,164 @@
+---
+title: "L9 - Model Fitting in R"
+author: "Jerry"
+date: "2022-10-06"
+output: html_document
+---
+
+# Model Fitting in R
+
+Today we are going to learn basic model fitting with the relatively new package "tidymodels". If you haven't already, install the "todymodels" package.
+
+## Load your packages
+
+```{r}
+library(tidyverse)
+library(tidymodels)
+library(datateachr)
+library(gapminder)
+```
+
+## Load your data
+
+```{r}
+data <- read.csv("https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv", sep = ";")
+
+data
+```
+
+## Need for Modelling Data
+
+1.  Understand the relationship between two variables in your data.
+2.  Predict the outcome of a variable given information about other variables
+
+## Fitting Models in R
+
+**General syntax is:**
+
+    method(formula, data, options)
+
+**Formulas usually look like this:**
+
+    y ~ x1 + x2
+
+where the tilde is more or less an equals sign.
+
+## Let's Start Modelling
+
+```{r}
+# A simple linear regression model modelling the relationship between pH and acidity
+my_lm <- lm(pH ~ fixed.acidity, data = data)
+my_lm
+```
+
+## Functions Designed for Modelling in Base R
+
+```{r}
+# Grab the coefficients of the model using coef()
+coef(my_lm)
+
+# Obtain the standard error of model using sigma()
+sigma(my_lm)
+
+# Get a summary for your model using summary()
+sum_lm <- summary(my_lm)
+
+# To extract specific information out of the summary, we can using the dollar sign subset symbol
+sum_lm$residuals
+sum_lm$xlevels
+
+# Get the column names of all elements of the model (which is now a list)? Basically, extract information directly from the model.
+names(my_lm)
+```
+
+## Model Proving Using tidymodel: broom package
+
+There are 3 primary functions: 1. tidy 2. augment\
+3. glance
+
+### tidy()
+
+```{r}
+# The tidy() function is analagous to the summary function but returns an output as a tibble
+tidy(my_lm)
+```
+
+### augment()
+
+```{r}
+# The augment() function does something... who know what tho!
+augment(my_lm) %>% 
+  print(n = 5)
+```
+
+#### Predicting On New Data
+
+```{r}
+augment(my_lm, newdata = tibble(fixed.acidity = 8:13))
+# for the output, it is basically saying that if fixed.acidity is x, then the pH will be y
+```
+
+### glance()
+
+```{r}
+# glance() extracts something???
+glance(my_lm)
+```
+
+## predict() when there is no `broom` compatability
+
+Not all model methods have `broom` compatabilty. `predict()` is used for these methods to probe and apply the model on the new data.
+
+```{r}
+predict(my_lm) %>% 
+  unname() %>% # remove all the names of elements
+  head(5)
+  
+```
+
+## Plotting Models with geom_smooth()
+
+We can plot models using geom_smooth()!
+
+```{r}
+# with no trendline
+data %>% 
+  ggplot(aes(x = fixed.acidity, y = pH)) +
+  geom_point()
+
+# default model
+data %>% 
+  ggplot(aes(x = fixed.acidity, y = pH)) +
+  geom_point() +
+  geom_smooth()
+
+#linear regression model
+data %>% 
+  ggplot(aes(x = fixed.acidity, y = pH)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+## Modelling in `gapminder`
+
+```{r}
+# How does lifeExp chane over year ins
+gapminder_Zimbabwe <- gapminder %>% 
+  filter(country == "Zimbabwe")
+
+# This is what our data looks like
+gapminder_Zimbabwe %>% 
+  ggplot(aes(year, lifeExp)) +
+  geom_point()
+
+# What model shoulw we use, a linear one probably isn't appropriate
+# Let's use a quadratice model. Here, we have to specify a formula for our lm method
+gapminder_Zimbabwe %>% 
+  ggplot(aes(year, lifeExp)) +
+  geom_point() +
+  geom_smooth(method = "lm", 
+              formula = y ~ poly(x, 2), 
+              se = FALSE)
+
+
+```
