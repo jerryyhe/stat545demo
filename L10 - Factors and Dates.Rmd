@@ -1,0 +1,118 @@
+---
+title: "L10 - Factors and Dates"
+author: "Jerry"
+date: "2022-10-04"
+output: html_document
+---
+
+# L10: Factors and Dates
+
+## Dates
+
+Dates are extremely difficult to deal with in programming since there are so many different ways to write and express dates that vary between people, countries, continents, etc.
+
+Luckily, there a package in the tidyverse called `lubridate` that deals with dates easily for us!
+
+------------------------------------------------------------------------
+
+### `lubridate`
+
+```{r}
+# Load the tidyverse 
+suppressPackageStartupMessages(library(tidyverse))
+suppressPackageStartupMessages(library(lubridate))
+```
+
+`lubridate` has functions that deal with dates. It takes an input format and outputs it to a year-month-date format
+
+```{r}
+# mdy() takes an input format of month-day-year
+mdy("10/13/2022")
+
+# We can also give an input in this format:
+mdy("October 13th, 2022")
+
+# We can even give a list with different formats. lubridate will convert them to a same format. 
+mdy(c("10/13/2022", "October 13th, 2022"))
+
+# Alternatively, ymd() takes input year-month-date
+ymd("20221013")
+
+ymd("22-10-13")
+```
+
+`lubridate` also has a guess_formats() function that might be able to guess the format. We're not entirely sure how to use it yeet, so look at the documentation and try yourself
+
+```{r}
+guess_formats()
+```
+
+### Times
+`lubridate` also has function that give date and time
+```{r}
+# This gives us a time output in UTC format
+ymd_hms("2022-10-13 9:21:45")
+
+# There is an argument that changes timezones, but it must be recognized by the users OS. It is kind of a pain
+ymd_hms("2022-10-13 9:25:13", tz = "EST")
+
+
+# Saving the date to a variable
+today <- mdy("10-13-2022")
+today
+
+# You can extract certain parts of the date too 
+year(today)
+month(today)
+
+# There's also a cool weekday function
+wday(today)
+
+# Day of the year
+yday(today)
+```
+### Doing Math with Dates
+This is actually inherently difficult. For us, it is hardwired into use that years don't always have 365 days or that not each month has 30 days. Officially, not all days have exactly 24 hours as well. Also, not every minute has 60 seconds either - there exist something called leap seconds!
+
+So, all this to say that math with dates is actually not very intuitive. Luckily, `lubridate` deals with all this for us!
+
+```{r}
+# Let's calculate how many days there are until Christmas
+christmas <- mdy("12-25-2022")
+
+christmas - today
+
+# Seconds until Christmas
+as.duration(christmas - today)
+
+# difftime is a class type in R that most times are stored as!
+is.difftime(christmas - today)
+```
+
+## Factors
+Factors are a special class type. Let's see what variables are stored as factors in the `palmerpenguins` dataset.
+```{r}
+library(palmerpenguins)
+glimpse(penguins)
+```
+
+Factors are a special way of storing categorical data. In short, R secretly stores these differenct categorical variables as numbers. So for example, it might store "Adelie" as 1 and "Gentoo" as 2 - but to us it's showed as the actualy nice words that have meaning to us!
+
+```{r}
+penguins %>% 
+  slice_sample(n=10) %>% 
+  pull(species) 
+```
+We can see here that there are 3 levels for our species variable, aka Adelie, Chinstrap, and Gentoo. 
+
+Factors are a pain, but often to plot categorical variables in ggplot, there is a requirement that they be factors. For example, have you ever wondered why your categorical variables appear in a certain order in bar plots from left to right? It's also hard to change this order. This is because R plots your categorical variables in the way that they are numbered to R. However, you can reorder these using function in the `forcats` package. 
+
+
+
+
+
+
+
+
+
+
