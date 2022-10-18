@@ -1,0 +1,171 @@
+---
+title: "L11: Tibble Joins"
+author: "Jerry"
+date: "2022-10-18"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Tibble Joins
+
+The idea that, given two or more tables, how would we go about putting the info into one table!
+
+```{r}
+library(tidyverse)
+```
+
+Below are two tibbles.
+
+```{r}
+# First tibble
+df1 <- tibble(ID = 1:3,                     
+              Name = c("Sophie", "Josh","Alex"))
+
+# Second tibble
+df2 <- tibble(ID = 2:4,                      
+              Age = c(20,50,31))
+```
+
+Tibble joins require that both dataframe have a column with unique identifiers (e.g student number, address, etc.) It will then use that ID column and match values from the left or right tibble to the other.
+
+## Mutating Tibble Joins
+
+Mutating joins will create new tibbles.
+
+### left_join()
+
+`left_join()` will take all columns from the left tibble and then use the ID column to **match** values from the right tibble.
+
+```{r}
+left_join(df1, df2, by = "ID")
+```
+
+### right_join()
+
+`right_join()` does the same but matches values on the left tibble to the right tibble.
+
+```{r}
+right_join(df1, df2, by = "ID")
+```
+
+### inner_join()
+
+`inner_join()` retains rows only present in both sets.
+
+```{r}
+inner_join(df1, df2, by = "ID")
+```
+
+### full_join()
+
+`full_join` retains all values and all rows.
+
+```{r}
+full_join(df1, df2, by = "ID")
+```
+
+## Filtering Joins
+
+### semi_join()
+`semi_join()` retains all rows in df1 that have a match in df2, the right tibble. These functions do not add dfs together.
+```{r}
+semi_join(df1, df2, by = "ID")
+```
+
+
+### anti_join()
+`anti_join()` retains all rows in df1 that **do not** have a match in df2. 
+
+```{r}
+anti_join(df1, df2, by = "ID")
+```
+
+## Binding
+
+### bind_rows()
+`bind_rows()` appends df2 to df1 as new rows (row-wise).
+```{r}
+bind_rows(df1, df2)
+```
+
+
+### bind_cols()
+`bind_cols()` appends df2 to df1 as new cols (col-wise).
+```{r}
+bind_cols(df1, df2)
+```
+
+
+## Joining Multiple Tibbles (>2)
+  
+Create a third tibble
+```{r}
+df3 <- tibble(ID = 1:5,                      
+              Height = c(175,167,190,155,160))
+```
+
+You can pipe the commands together:
+```{r}
+full_join(df1, df2, by = "ID") %>% 
+  full_join(df3, by = "ID")
+```
+
+
+## Joining Tibbles on Multiple Conditions
+Create two new tibbles. 
+```{r}
+df4 <- tibble(FirstName = c("Sophie", "Josh","Alex"),
+              LastName=c("Wang","Smith","Smith"),
+              Age = c(42,20,50))
+
+df5 <- tibble(First_name = c("Josh","Alex","Sophie"),        
+              Last_name=c("Smith","Smith","Jones"),
+              Height = c(167,190,155))
+
+```
+Above, FirstName is in df4 and First_name is in df5. They are different. 
+
+Here's how we can specify the mapping in `full_join()`:
+```{r}
+full_join(df4, df5, by = c("FirstName" = "First_name", "LastName" = "Last_name"))
+```
+
+### What if we did not realize that multiple people share a last name. 
+What would happen is tha function will spit out every possible combination of first name and last name (?).
+Often, if you are not using a truly unique identifier in the ID paranater, you will get many more rows than columns. 
+
+
+## Set Operations
+Create some new example tibbles
+```{r}
+# First tibble
+df6 <- tibble(Number = 1:3,                     
+              Letter = c("A", "B","C"))
+
+# Second tibble
+df7 <- tibble(Number = 2:4,                      
+              Letter = c("B","C","D"))
+```
+
+
+### intersect()
+`intersect()` includes rows that appear in both tibbles
+```{r}
+intersect(df6, df7)
+```
+
+### union()
+`unite()` includes rows that appear in either or both tibbles. 
+```{r}
+union(df6, df7)
+```
+
+### setdiff()
+`setdiff()` includes rows that appear in one df but not the other. 
+```{r}
+setdiff(df6, df7)
+```
+
