@@ -1,0 +1,96 @@
+---
+title: 'L12: Reading and Writing Data'
+author: "Jerry"
+date: "2022-10-20"
+output: ioslides_presentation
+---
+# L12: Reading and Writing Data
+Data is often stored in spreadsheet like files; however, this can become an issue when sharing data since not all OS's can access Excel spreadsheets or .numbers files. Because of this, we often store data in `.csv` files which is readable on any OS and can be read into your spreadsheet viewer of choice. 
+
+
+## Reading data with `readr`
+```{r}
+library(readr)
+```
+
+`readr` is a package that is loaded as part of the `tidyverse`. It contains many different functions to read different filetypes and write different filetypes. 
+
+For practice, let's load a `.csv` file on your computer. Any `.csv` file will do. I will load some data from one of my projects. 
+```{r}
+data <- read_csv("~/tropini/P006-Identifying_Biofilm_Models_Organisms/data/top50_intersect_biofilm_formers.csv")
+```
+
+We can see it gives some info in the console output such as what delimiter was used and the type for different columns (there's only one col in this dataset).
+
+The `skip` parameter can be useful. This parameter specifies how many lines to skip before reading the data and the default is 0. So if, for example, you don't want to read the first line of data (maybe it contains irrelevant info) then specify `skip = 1`.
+
+```{r}
+data_skip <- read_csv("~/tropini/P006-Identifying_Biofilm_Models_Organisms/data/top50_intersect_biofilm_formers.csv", skip = 1)
+```
+But be careful! Notice how `Species` in the original dataset was skipped, but now `Lactobacillus` becomes the colname. 
+
+You can speciify `col_names = FALSE` to prevent data from being read as the header.
+
+```{r}
+data_no_header <- read_csv("~/tropini/P006-Identifying_Biofilm_Models_Organisms/data/top50_intersect_biofilm_formers.csv", skip = 1, col_names = FALSE)
+```
+
+## Writing Data
+We can use `write_csv()` to write our dataframe into a .csv file.
+```{r}
+write_csv(x = data, file = "~/Desktop/write_data")
+```
+
+What happens when you don't specify a path?
+
+Well, then it just writes the file to your current working directory. You can see what directory you're working in by using the `getwd()` function. 
+```{r}
+getwd()
+```
+
+## setwd()
+Don't use it! Or at least be really careful. It's not very reproducible for you to use setwd() to specify a directory location that ONLY YOU CAN ... so what should we do instead?
+
+Also, Windows and Mac actually use different slashes / vs \ for paths smh. 
+## here()
+```{r}
+library(here)
+```
+
+`here()` is a great function to soft-code in paths rather than hard-code.
+
+
+```{r}
+here()
+here("write_data.csv")
+```   
+`here()` almost acts as sort of a paste function for directories. Basically, here() automatically calls the current working directory, which is where your `.Rproj` file should be. Then it will paste the name you supply as an argument with the correct path separators. What this means is that you can also paste together a directory and a filename like so.
+
+```{r}
+here("directory",
+     "file.csv")
+```
+Also note that there is something weird that happens with .Rmd and here(). What it is I did not catch...
+
+
+## Reading and Writing to R Binaries with `readRDS()`
+These functions are part of base R.
+
+```{r}
+# Write and example RDS file (commented out below)
+#write_rds(data, here("example_rds"))
+
+# Read the RDS
+readRDS(here("example_rds"))
+```
+
+
+
+
+
+
+
+
+
+
+
